@@ -1,0 +1,6 @@
+@PesquisaEleitoral_HostAddress = http://localhost:5152
+
+GET {{PesquisaEleitoral_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

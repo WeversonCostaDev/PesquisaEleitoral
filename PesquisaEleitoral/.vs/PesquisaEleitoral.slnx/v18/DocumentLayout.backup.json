@@ -1,0 +1,126 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\migrations\\20260330170918_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\migrations\\20260330170918_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Migrations\\20260330170853_IniticalCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:PesquisaEleitoral\\Migrations\\20260330170853_IniticalCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\models\\candidato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\models\\candidato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\models\\intencaodevoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\models\\intencaodevoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A9D8CD65-FE99-4DAD-9116-E92D9D841241}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "20260330170918_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Migrations\\20260330170918_InitialCreate.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Migrations\\20260330170918_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Migrations\\20260330170918_InitialCreate.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Migrations\\20260330170918_InitialCreate.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAuwGsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T17:09:18.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20260330170853_IniticalCreate.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Migrations\\20260330170853_IniticalCreate.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Migrations\\20260330170853_IniticalCreate.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Migrations\\20260330170853_IniticalCreate.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Migrations\\20260330170853_IniticalCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T17:08:53.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Candidato.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Models\\Candidato.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Models\\Candidato.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Models\\Candidato.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Models\\Candidato.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAUwBUAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T17:00:02.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\appsettings.json",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\appsettings.json",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\appsettings.json",
+              "RelativeToolTip": "PesquisaEleitoral\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-30T16:37:25.971Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Program.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Program.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Program.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T16:35:42.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IntencaoDeVoto.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Models\\IntencaoDeVoto.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Models\\IntencaoDeVoto.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Models\\IntencaoDeVoto.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Models\\IntencaoDeVoto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T16:30:29.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
