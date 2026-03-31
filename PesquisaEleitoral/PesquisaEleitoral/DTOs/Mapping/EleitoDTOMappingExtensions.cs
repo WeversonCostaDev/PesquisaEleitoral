@@ -1,0 +1,57 @@
+﻿using PesquisaEleitoral.DTOs.Candidatos;
+using PesquisaEleitoral.DTOs.Eleitores;
+using PesquisaEleitoral.Models;
+
+namespace PesquisaEleitoral.DTOs.Mapping
+{
+    public static class EleitoDTOMappingExtensions
+    {
+        public static Eleitor ToEleitor(this EleitorDTO eleitorDto)
+        {
+            return new Eleitor
+            {
+                Nome = eleitorDto.Nome,
+                Idade = eleitorDto.Idade,
+                Sexo = eleitorDto.Sexo,
+                Regiao = eleitorDto.Regiao,
+            };
+        }
+
+        public static EleitorResponseDTO ToEleitorResponseDTO(this Eleitor eleitor)
+        {
+            return new EleitorResponseDTO
+            {   
+                EleitorId = eleitor.EleitorId,
+                Nome = eleitor.Nome,
+                Idade = eleitor.Idade,
+                Sexo = eleitor.Sexo,
+                Regiao = eleitor.Regiao,
+            };
+        }
+        public static IEnumerable<EleitorResponseDTO> ToEleitoresResponseDTOList(this IEnumerable<Eleitor> eleitores)
+        {
+            var eleitoresResponseDto = eleitores.Select(e => new EleitorResponseDTO
+            {
+                EleitorId = e.EleitorId,
+                Nome = e.Nome,
+                Idade = e.Idade,
+                Sexo = e.Sexo,
+                Regiao= e.Regiao,
+            });
+            return eleitoresResponseDto;
+        }
+
+        public static Eleitor ToEleitor(this EleitorPutDTO eleitorPutDto)
+        {
+            return new Eleitor
+            {
+                EleitorId = eleitorPutDto.EleitorId,
+                Nome = eleitorPutDto.Nome,
+                Idade= eleitorPutDto.Idade,
+                Sexo= eleitorPutDto.Sexo,
+                Regiao= eleitorPutDto.Regiao,
+            };
+        }
+
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PesquisaEleitoral.Data;
+using System.Linq.Expressions;
 
 namespace PesquisaEleitoral.Repositories
 {
@@ -11,24 +12,45 @@ namespace PesquisaEleitoral.Repositories
         {
             _context = context;
         }
-        protected IQueryable<T> Get()
+
+        public async Task<T?> GetById(int id)
         {
-            return _context.Set<T>();
+            return await _context
+                .Set<T>()
+                .FindAsync(id);
+        }
+
+        public async Task<IEnumerable<T>> GetAll(int take)
+        {
+            return await _context
+                .Set<T>()
+                .AsNoTracking()
+                .Take(take)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate)
+        {
+            return await _context
+                .Set<T>()
+                .AsNoTracking()
+                .Where(predicate)
+                .ToListAsync();
         }
         
-        protected T Create(T entity)
+        public T Create(T entity)
         {
             _context.Set<T>().Add(entity);
             return entity;
         }
 
-        protected T Update(T entity)
-        {
+        public T Update(T entity)
+        {   
             _context.Set<T>().Update(entity);
             return entity;
         }
 
-        protected T Delete(T entity)
+        public T Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
             return entity;

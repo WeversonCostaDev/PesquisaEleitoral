@@ -2,12 +2,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using PesquisaEleitoral.Data;
 using PesquisaEleitoral.Extensions;
+using PesquisaEleitoral.Repositories;
+using PesquisaEleitoral.Repositories.Interfaces;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+//Ajustando serialização dos enums.
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -18,6 +27,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 //registrar o DbContext com MySQL
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
