@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PesquisaEleitoral.DTOs.IntencaoDeVotos
 {
-    public class IntecaoDeVotoDTO
+    public class IntencaoDeVotoDTO
     {
-        public int IntencaoDeVotoId { get; set; }
         [Required]
         public int CandidatoId { get; set; }
         [Required]

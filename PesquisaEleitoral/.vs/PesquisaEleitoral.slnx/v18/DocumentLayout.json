@@ -1,28 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\controllers\\candidatocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\controllers\\candidatocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\dtos\\mapping\\candidatodtomappingextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\dtos\\mapping\\candidatodtomappingextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\repositories\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\dtos\\candidatodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\dtos\\candidatodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\models\\candidato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\models\\candidato.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,77 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CandidatoController.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\CandidatoController.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\Controllers\\CandidatoController.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\CandidatoController.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\Controllers\\CandidatoController.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAuwEIAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T14:34:36.233Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Candidato.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Models\\Candidato.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\Models\\Candidato.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Models\\Candidato.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\Models\\Candidato.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAUwBgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T18:29:11.158Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CandidatoDTO.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\DTOs\\CandidatoDTO.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\DTOs\\CandidatoDTO.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\DTOs\\CandidatoDTO.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\DTOs\\CandidatoDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T17:47:29.966Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Repository.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Repositories\\Repository.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\Repositories\\Repository.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Repositories\\Repository.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\Repositories\\Repository.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAmwC8AAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T16:32:49.371Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CandidatoDTOMappingExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\DTOs\\Mapping\\CandidatoDTOMappingExtensions.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\DTOs\\Mapping\\CandidatoDTOMappingExtensions.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\DTOs\\Mapping\\CandidatoDTOMappingExtensions.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\DTOs\\Mapping\\CandidatoDTOMappingExtensions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAkwCIAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T14:47:58.324Z",
-              "EditorCaption": ""
             }
           ]
         }

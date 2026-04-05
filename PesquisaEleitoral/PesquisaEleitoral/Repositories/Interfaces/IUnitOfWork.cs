@@ -4,6 +4,7 @@
     {
         public ICandidatoRepository CandidatoRepository { get; }
         public IEleitorRepository EleitorRepository { get; }
+        public IIntencaoDeVotoRepository IntencaoDeVotoRepository { get; }
 
         public Task CommitAsync();
 

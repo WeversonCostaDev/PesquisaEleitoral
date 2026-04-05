@@ -8,6 +8,8 @@ namespace PesquisaEleitoral.Repositories
     {
         private ICandidatoRepository? _candidatoRepo;
         private IEleitorRepository? _eleitorRepo;
+        private IIntencaoDeVotoRepository? _intencaoDeVotoRepo;
+
         private AppDbContext _context;
         public UnitOfWork(AppDbContext context)
         {
@@ -27,6 +29,14 @@ namespace PesquisaEleitoral.Repositories
             get
             {
                 return _eleitorRepo = _eleitorRepo ?? new EleitorRepository(_context);
+            }
+        }
+
+        public IIntencaoDeVotoRepository IntencaoDeVotoRepository
+        {
+            get
+            {
+                return _intencaoDeVotoRepo = _intencaoDeVotoRepo ?? new IntecaoDeVotoRepository(_context);
             }
         }
 

@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\controllers\\candidatocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\controllers\\candidatocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\dtos\\mapping\\candidatodtomappingextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\dtos\\mapping\\candidatodtomappingextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\controllers\\intencaodevotocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\controllers\\intencaodevotocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,28 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CandidatoDTOMappingExtensions.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\DTOs\\Mapping\\CandidatoDTOMappingExtensions.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\DTOs\\Mapping\\CandidatoDTOMappingExtensions.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\DTOs\\Mapping\\CandidatoDTOMappingExtensions.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\DTOs\\Mapping\\CandidatoDTOMappingExtensions.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAqwBwAAABZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T14:47:58.324Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CandidatoController.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\CandidatoController.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\Controllers\\CandidatoController.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\CandidatoController.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\Controllers\\CandidatoController.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAwDAAAABMAAAAAAAAAA==",
+              "Title": "IntencaoDeVotoController.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T14:34:36.233Z",
+              "WhenOpened": "2026-04-04T19:38:52.939Z",
               "EditorCaption": ""
             }
           ]

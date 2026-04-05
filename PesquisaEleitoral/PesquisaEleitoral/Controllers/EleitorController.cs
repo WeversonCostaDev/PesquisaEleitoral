@@ -22,7 +22,7 @@ namespace PesquisaEleitoral.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EleitorResponseDTO>>> GetPaged([BindRequired][Range(1, 100)] int take)
         {
-            var eleitores = await _uow.EleitorRepository.GetAll(take);
+            var eleitores = await _uow.EleitorRepository.GetPagedAsync(take);
             var eleitoresResponseDto = eleitores.ToEleitoresResponseDTOList();
 
             return Ok(eleitoresResponseDto);
@@ -31,7 +31,7 @@ namespace PesquisaEleitoral.Controllers
         [HttpGet("{id}", Name = "GetEleitorById")]
         public async Task<ActionResult<EleitorResponseDTO>> GetById(int id)
         {
-            var eleitor = await _uow.EleitorRepository.GetById(id);
+            var eleitor = await _uow.EleitorRepository.GetByIdAsync(id);
             if (eleitor is null)
             {
                 return NotFound("Eleitor não encontrado!");
@@ -73,7 +73,7 @@ namespace PesquisaEleitoral.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var eleitor = await _uow.EleitorRepository.GetById(id);
+            var eleitor = await _uow.EleitorRepository.GetByIdAsync(id);
             if (eleitor is null)
             {
                 return NotFound("Eleitor não encontrado!");

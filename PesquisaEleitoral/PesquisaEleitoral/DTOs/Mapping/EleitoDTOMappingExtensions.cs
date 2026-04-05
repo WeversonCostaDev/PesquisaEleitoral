@@ -16,7 +16,17 @@ namespace PesquisaEleitoral.DTOs.Mapping
                 Regiao = eleitorDto.Regiao,
             };
         }
-
+        public static Eleitor ToEleitor(this EleitorPutDTO eleitorPutDto)
+        {
+            return new Eleitor
+            {
+                EleitorId = eleitorPutDto.EleitorId,
+                Nome = eleitorPutDto.Nome,
+                Idade = eleitorPutDto.Idade,
+                Sexo = eleitorPutDto.Sexo,
+                Regiao = eleitorPutDto.Regiao,
+            };
+        }
         public static EleitorResponseDTO ToEleitorResponseDTO(this Eleitor eleitor)
         {
             return new EleitorResponseDTO
@@ -30,28 +40,7 @@ namespace PesquisaEleitoral.DTOs.Mapping
         }
         public static IEnumerable<EleitorResponseDTO> ToEleitoresResponseDTOList(this IEnumerable<Eleitor> eleitores)
         {
-            var eleitoresResponseDto = eleitores.Select(e => new EleitorResponseDTO
-            {
-                EleitorId = e.EleitorId,
-                Nome = e.Nome,
-                Idade = e.Idade,
-                Sexo = e.Sexo,
-                Regiao= e.Regiao,
-            });
-            return eleitoresResponseDto;
+            return eleitores.Select(e => e.ToEleitorResponseDTO());   
         }
-
-        public static Eleitor ToEleitor(this EleitorPutDTO eleitorPutDto)
-        {
-            return new Eleitor
-            {
-                EleitorId = eleitorPutDto.EleitorId,
-                Nome = eleitorPutDto.Nome,
-                Idade= eleitorPutDto.Idade,
-                Sexo= eleitorPutDto.Sexo,
-                Regiao= eleitorPutDto.Regiao,
-            };
-        }
-
     }
 }

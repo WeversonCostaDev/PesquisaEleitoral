@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PesquisaEleitoral.DTOs;
+using PesquisaEleitoral.DTOs.Candidatos;
 using PesquisaEleitoral.DTOs.Mapping;
 using PesquisaEleitoral.Models;
 using PesquisaEleitoral.Repositories.Interfaces;
@@ -12,22 +13,22 @@ namespace PesquisaEleitoral.Controllers
     [ApiController]
     public class CandidatoController : ControllerBase
     {
-        private IUnitOfWork _uof;
-        public CandidatoController(IUnitOfWork uof)
+        private IUnitOfWork _uow;
+        public CandidatoController(IUnitOfWork uow)
         {
-            _uof = uof;
+            _uow = uow;
         }
 
         //Pega quantidade X determinada pelo parâmetro take que é passado pela Querry.
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CandidatoResponseDTO>>> GetAll(int take) 
+        public async Task<ActionResult<IEnumerable<CandidatoResponseDTO>>> GetPaged(int take) 
         {
             if (take < 1 || take > 100)
             {
                 return BadRequest("O parâmetro 'take' deve estar entre 1 e 100.");
             }
 
-            var candidatos = await _uof.CandidatoRepository.GetAll(take);
+            var candidatos = await _uow.CandidatoRepository.GetPagedAsync(take);
             var candidatosResponseDto = candidatos.ToCandidatosResponseDTOList();
 
             return Ok(candidatosResponseDto);
@@ -37,7 +38,7 @@ namespace PesquisaEleitoral.Controllers
         [HttpGet("{id}",Name="GetCandidatoById")]
         public async Task<ActionResult<CandidatoResponseDTO>> GetById(int id)
         {
-            var candidato = await _uof.CandidatoRepository.GetById(id);
+            var candidato = await _uow.CandidatoRepository.GetByIdAsync(id);
             if (candidato == null) 
             {
                 return NotFound();
@@ -55,15 +56,37 @@ namespace PesquisaEleitoral.Controllers
                 return BadRequest();
             }
             var candidato = candidatoDto.ToCandidato();
-            var novoCandidato = _uof.CandidatoRepository.Create(candidato);
+            var novoCandidato = _uow.CandidatoRepository.Create(candidato);
 
-            await _uof.CommitAsync();
+            await _uow.CommitAsync();
 
             var candidatoResponseDto = novoCandidato.ToCandidatoResponseDTO();
 
             return CreatedAtRoute("GetCandidatoById", new { id = candidatoResponseDto}, candidatoResponseDto);
         }
 
-        
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, CandidatoPutDTO candidatoPutDto)
+        {
+            if(candidatoPutDto.CandidatoId != id)
+            {
+                return BadRequest("O id não coincide");
+            }
+            var candidato = candidatoPutDto.ToCandidato();
+            _uow.CandidatoRepository.Update(candidato);
+            await _uow.CommitAsync();
+            return NoContent();
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var candidato = await _uow.CandidatoRepository.GetByIdAsync(id);
+            if(candidato is null)
+            {
+                return NotFound();
+            }
+            _uow.CandidatoRepository.Delete(candidato);
+            return NoContent();
+        }
     }
 }
