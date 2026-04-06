@@ -1,4 +1,4 @@
-﻿namespace PesquisaEleitoral.DTOs.IntencaoDeVotos
+﻿namespace PesquisaEleitoral.DTOs.Estatisticas
 {
     public class EstatisticaVotoResponseDTO
     {

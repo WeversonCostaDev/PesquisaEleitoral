@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\controllers\\intencaodevotocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\controllers\\intencaodevotocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IntencaoDeVotoController.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAwwD0AAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-06T19:34:54.302Z",
+              "EditorCaption": ""
             }
           ]
         }

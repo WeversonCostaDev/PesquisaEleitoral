@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PesquisaEleitoral.DTOs.Estatisticas;
 using PesquisaEleitoral.DTOs.IntencaoDeVotos;
 using PesquisaEleitoral.DTOs.Mapping;
 using PesquisaEleitoral.Enums;
@@ -16,12 +17,12 @@ namespace PesquisaEleitoral.Controllers
         {
             _uow = uow;
         }
-     
 
-        [HttpGet("{id}", Name = "GetIntencaoDeVotoById")]
+
+        [HttpGet("{id}", Name = "GetById")]
         public async Task<ActionResult<IntencaoDeVotoResponseDTO>> GetById(int id)
         {
-            var intencaoDeVoto = await _uow.IntencaoDeVotoRepository.GetByIdAsync(id);
+            var intencaoDeVoto = await _uow.IntencaoDeVotoRepository.GetByIdFullAsync(id);
             if(intencaoDeVoto is null)
             {
                 return NotFound("Não encontrado!");
@@ -29,10 +30,18 @@ namespace PesquisaEleitoral.Controllers
 
             var intencaoDeVotoResponseDto = intencaoDeVoto.ToIntencaoDeVotoResponseDTO(); 
             return Ok(intencaoDeVotoResponseDto);
-        } 
+        }
+
+        [HttpGet("estatisticas")]
+        public async Task<ActionResult<IEnumerable<EstatisticaVotoResponseDTO>>> GetEstatistica(Regiao? regiao)
+        {
+            var listaDeVotosPorCandidato = await _uow.IntencaoDeVotoRepository.EstatisticaDeVotoPorCandidatoAsync(regiao);
+
+            return Ok(listaDeVotosPorCandidato);
+        }
 
         [HttpPost]
-        public async Task<ActionResult<IntencaoDeVotoResponseDTO>> Post(IntencaoDeVotoDTO intencaoDeVotoDto)
+        public async Task<ActionResult> Post(IntencaoDeVotoDTO intencaoDeVotoDto)
         {   
             if (intencaoDeVotoDto is null)
             {
@@ -49,7 +58,10 @@ namespace PesquisaEleitoral.Controllers
             var intencaoDeVoto = intencaoDeVotoDto.ToIntencaoDeVoto();
             _uow.IntencaoDeVotoRepository.Create(intencaoDeVoto);
             await _uow.CommitAsync();
-            return CreatedAtRoute("GetIntencaoDeVotoById", new {id = intencaoDeVoto.IntencaoDeVotoId}, intencaoDeVoto);
+            var intencaoDeVotoAtualizado = await _uow.IntencaoDeVotoRepository.GetByIdFullAsync(intencaoDeVoto.IntencaoDeVotoId);
+            var intencaoDeVotoResponseDto = intencaoDeVotoAtualizado!.ToIntencaoDeVotoResponseDTO();
+
+            return CreatedAtRoute(nameof(GetById), new {id = intencaoDeVotoResponseDto.IntencaoDeVotoId}, intencaoDeVotoResponseDto);
         }
 
         [HttpPut("{id}")]
