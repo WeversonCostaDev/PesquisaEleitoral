@@ -44,9 +44,8 @@ namespace PesquisaEleitoral.Controllers
         public async Task<ActionResult> Post(EleitorDTO eleitorDto)
         {
             if (eleitorDto is null)
-            {
                 return BadRequest("Entrada de dados inválida!");
-            }
+
             var eleitor = eleitorDto.ToEleitor();
             var novoEleitor = _uow.EleitorRepository.Create(eleitor);
 
@@ -60,13 +59,16 @@ namespace PesquisaEleitoral.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, EleitorPutDTO eleitorPutDto)
         {
-            if (id != eleitorPutDto.EleitorId)
-            {
+            if (id != eleitorPutDto.EleitorId) 
                 return BadRequest("Os números de Id não coincidem.");
-            }
 
-            var eleitor = eleitorPutDto.ToEleitor();
-            _uow.EleitorRepository.Update(eleitor);
+            var eleitor = await _uow.EleitorRepository.GetByIdAsync(id);
+
+            if (eleitor is null) 
+                return NotFound("Eleitor não encotrado.");
+;
+            eleitor.UpdateFromDTO(eleitorPutDto);
+
             await _uow.CommitAsync();
             return NoContent();
         }
@@ -75,9 +77,7 @@ namespace PesquisaEleitoral.Controllers
         {
             var eleitor = await _uow.EleitorRepository.GetByIdAsync(id);
             if (eleitor is null)
-            {
                 return NotFound("Eleitor não encontrado!");
-            }
 
             _uow.EleitorRepository.Delete(eleitor);
 

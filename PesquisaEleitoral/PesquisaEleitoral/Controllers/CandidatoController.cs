@@ -69,11 +69,14 @@ namespace PesquisaEleitoral.Controllers
         public async Task<ActionResult> Put(int id, CandidatoPutDTO candidatoPutDto)
         {
             if(candidatoPutDto.CandidatoId != id)
-            {
                 return BadRequest("O id não coincide");
-            }
-            var candidato = candidatoPutDto.ToCandidato();
-            _uow.CandidatoRepository.Update(candidato);
+
+            var candidato = await _uow.CandidatoRepository.GetByIdAsync(id);
+            if(candidato is null) 
+                return NotFound("Registro não encontrado.");
+
+            candidato.UpdateFromDTO(candidatoPutDto);
+
             await _uow.CommitAsync();
             return NoContent();
         }
@@ -82,10 +85,10 @@ namespace PesquisaEleitoral.Controllers
         {
             var candidato = await _uow.CandidatoRepository.GetByIdAsync(id);
             if(candidato is null)
-            {
                 return NotFound();
-            }
+            
             _uow.CandidatoRepository.Delete(candidato);
+            await _uow.CommitAsync();
             return NoContent();
         }
     }

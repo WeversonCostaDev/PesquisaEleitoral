@@ -20,6 +20,12 @@ namespace PesquisaEleitoral.Models
 
         [Required]
         public Regiao Regiao { get; set; }
+        
+        [Required]
+        public Escolaridade Escolaridade { get; set; }
+
+        [Required]
+        public decimal Renda { get; set; }
 
         [JsonIgnore]
         public IntencaoDeVoto? IntencaoDeVoto { get; set; }

@@ -15,15 +15,11 @@ namespace PesquisaEleitoral.DTOs.Mapping
                 DataRegistro = intencaoDeVotoDto.DataRegistro,
             };
         }
-
-        public static IntencaoDeVoto ToIntencaoDeVoto(this IntencaoDeVotoPutDTO intencaoDeVotoPutDto)
+        public static void UpdateFromDTO(this IntencaoDeVoto intencao, IntencaoDeVotoPutDTO intencaoDeVotoPutDto)
         {
-            return new IntencaoDeVoto
-            {   
-                CandidatoId = intencaoDeVotoPutDto.CandidatoId,
-                EleitorId = intencaoDeVotoPutDto.EleitorId,
-                DataRegistro = intencaoDeVotoPutDto.DataRegistro,
-            };
+            intencao.CandidatoId = intencaoDeVotoPutDto.CandidatoId;
+            intencao.EleitorId = intencaoDeVotoPutDto.EleitorId;
+            intencao.DataRegistro = intencaoDeVotoPutDto.DataRegistro;
         }
 
         public static IntencaoDeVotoResponseDTO ToIntencaoDeVotoResponseDTO(this IntencaoDeVoto intencaoDeVoto)

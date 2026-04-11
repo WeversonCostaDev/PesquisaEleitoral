@@ -16,16 +16,13 @@ namespace PesquisaEleitoral.DTOs.Mapping
                 Regiao = eleitorDto.Regiao,
             };
         }
-        public static Eleitor ToEleitor(this EleitorPutDTO eleitorPutDto)
+        public static void UpdateFromDTO(this Eleitor eleitor, EleitorPutDTO eleitorPutDto)
         {
-            return new Eleitor
-            {
-                EleitorId = eleitorPutDto.EleitorId,
-                Nome = eleitorPutDto.Nome,
-                Idade = eleitorPutDto.Idade,
-                Sexo = eleitorPutDto.Sexo,
-                Regiao = eleitorPutDto.Regiao,
-            };
+            eleitor.EleitorId = eleitorPutDto.EleitorId;
+            eleitor.Nome = eleitorPutDto.Nome;
+            eleitor.Idade = eleitorPutDto.Idade;
+            eleitor.Sexo = eleitorPutDto.Sexo;
+            eleitor.Regiao = eleitorPutDto.Regiao;
         }
         public static EleitorResponseDTO ToEleitorResponseDTO(this Eleitor eleitor)
         {

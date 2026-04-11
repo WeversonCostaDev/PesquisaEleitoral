@@ -19,7 +19,7 @@ namespace PesquisaEleitoral.DTOs.Mapping
         public static CandidatoResponseDTO ToCandidatoResponseDTO(this Candidato candidato)
         {
             return new CandidatoResponseDTO
-            {   
+            {
                 CandidatoId = candidato.CandidatoId,
                 Nome = candidato.Nome,
                 Numero = candidato.Numero,
@@ -27,14 +27,12 @@ namespace PesquisaEleitoral.DTOs.Mapping
             };
         }
 
-        public static Candidato ToCandidato(this CandidatoPutDTO candidatoPutDto)
+        public static void UpdateFromDTO(this Candidato candidato, CandidatoPutDTO candidatoPutDto)
         {
-            return new Candidato
-            {   CandidatoId = candidatoPutDto.CandidatoId,
-                Nome = candidatoPutDto.Nome,
-                Partido = candidatoPutDto.Partido,
-                Numero = candidatoPutDto.Numero,
-            };
+            candidato.CandidatoId = candidatoPutDto.CandidatoId;
+            candidato.Nome = candidatoPutDto.Nome;
+            candidato.Partido = candidatoPutDto.Partido;
+            candidato.Numero = candidatoPutDto.Numero;
         }
 
         public static IEnumerable<CandidatoResponseDTO> ToCandidatosResponseDTOList(this IEnumerable<Candidato> candidatos)

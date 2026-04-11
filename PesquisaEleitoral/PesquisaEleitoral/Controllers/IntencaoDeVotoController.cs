@@ -3,6 +3,7 @@ using PesquisaEleitoral.DTOs.Estatisticas;
 using PesquisaEleitoral.DTOs.IntencaoDeVotos;
 using PesquisaEleitoral.DTOs.Mapping;
 using PesquisaEleitoral.Enums;
+using PesquisaEleitoral.Models;
 using PesquisaEleitoral.Repositories.Interfaces;
 
 namespace PesquisaEleitoral.Controllers
@@ -18,11 +19,18 @@ namespace PesquisaEleitoral.Controllers
             _uow = uow;
         }
 
+        [HttpGet()] 
+        public async Task<ActionResult<IEnumerable<IntencaoDeVotoResponseDTO>>> GetPaged(int take)
+        {
+            var intencoesDeVoto = await _uow.IntencaoDeVotoRepository.GetPagedAsync(take);
+            var intencoesDeVotoResponseDto = intencoesDeVoto.ToIntencaoDeVotoResponseDTOList();
+            return Ok(intencoesDeVotoResponseDto);
+        }
 
         [HttpGet("{id}", Name = "GetById")]
         public async Task<ActionResult<IntencaoDeVotoResponseDTO>> GetById(int id)
         {
-            var intencaoDeVoto = await _uow.IntencaoDeVotoRepository.GetByIdFullAsync(id);
+            var intencaoDeVoto = await _uow.IntencaoDeVotoRepository.GetByIdAsync(id);
             if(intencaoDeVoto is null)
             {
                 return NotFound("Não encontrado!");
@@ -48,35 +56,43 @@ namespace PesquisaEleitoral.Controllers
                 return BadRequest("Entrada de dados inválida.");
             }
 
-            //Regra de negócio -> adicione em service
-            bool jaVotou = await _uow.IntencaoDeVotoRepository.AnyAsync(iv => iv.EleitorId == intencaoDeVotoDto.EleitorId);
-            if(jaVotou)
-            {
-                return BadRequest($"Eleitor já efetuou o seu voto!\nSe quiser tente atualizar.");
-            }
+            //Regra de negócio -> adicione em service caso seja realmente necessário criar um.
+            bool jaVotou = await _uow.IntencaoDeVotoRepository.ExistsAsync<IntencaoDeVoto>(iv => iv.EleitorId == intencaoDeVotoDto.EleitorId);
+            if(jaVotou) return BadRequest($"Eleitor já efetuou o seu voto!\nSe quiser tente atualizar.");
 
             var intencaoDeVoto = intencaoDeVotoDto.ToIntencaoDeVoto();
+
+            var candicatoExiste = await _uow.IntencaoDeVotoRepository.ExistsAsync<Candidato>(c => c.CandidatoId == intencaoDeVoto.CandidatoId);
+            if (!candicatoExiste) return BadRequest("O candidato não existe.");
+            var eleitorExiste = await _uow.IntencaoDeVotoRepository.ExistsAsync<Eleitor>(e => e.EleitorId == intencaoDeVoto.EleitorId);
+            if (!eleitorExiste) return BadRequest("O eleitor não existe.");
+            
             _uow.IntencaoDeVotoRepository.Create(intencaoDeVoto);
             await _uow.CommitAsync();
-            var intencaoDeVotoAtualizado = await _uow.IntencaoDeVotoRepository.GetByIdFullAsync(intencaoDeVoto.IntencaoDeVotoId);
+            var intencaoDeVotoAtualizado = await _uow.IntencaoDeVotoRepository.GetByIdAsync(intencaoDeVoto.IntencaoDeVotoId);
             var intencaoDeVotoResponseDto = intencaoDeVotoAtualizado!.ToIntencaoDeVotoResponseDTO();
 
             return CreatedAtRoute(nameof(GetById), new {id = intencaoDeVotoResponseDto.IntencaoDeVotoId}, intencaoDeVotoResponseDto);
         }
-
+        
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, IntencaoDeVotoPutDTO intencaoDeVotoPutDto)
         {
-            if (intencaoDeVotoPutDto.IntencaoDeVotoId == id)
-            {
+            if (intencaoDeVotoPutDto.IntencaoDeVotoId != id)
                 return BadRequest("O id não coincide");
-            }
-            var intencaoDeVoto = intencaoDeVotoPutDto.ToIntencaoDeVoto();
-            _uow.IntencaoDeVotoRepository.Update(intencaoDeVoto);
+            
+            var intencao = await _uow.IntencaoDeVotoRepository.GetByIdAsync(intencaoDeVotoPutDto.IntencaoDeVotoId);
+            if (intencao is null) return NotFound("O registro não existe.");
+
+            bool candicatoExiste = await _uow.IntencaoDeVotoRepository.ExistsAsync<Candidato>(c => c.CandidatoId == intencaoDeVotoPutDto.CandidatoId);
+            if (!candicatoExiste) return BadRequest("O candidato não existe.");
+            bool eleitorExiste = await _uow.IntencaoDeVotoRepository.ExistsAsync<Eleitor>(e => e.EleitorId == intencaoDeVotoPutDto.EleitorId);
+            if (!eleitorExiste) return BadRequest("O eleitor não existe.");
+
+            intencao.UpdateFromDTO(intencaoDeVotoPutDto);
             await _uow.CommitAsync();
             return NoContent();
         }
-
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id) 
         {
