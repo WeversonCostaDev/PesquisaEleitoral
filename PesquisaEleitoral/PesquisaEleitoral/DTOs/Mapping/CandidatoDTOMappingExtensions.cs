@@ -1,4 +1,5 @@
-﻿using PesquisaEleitoral.Models;
+﻿using PesquisaEleitoral.DTOs.Candidatos;
+using PesquisaEleitoral.Models;
 
 namespace PesquisaEleitoral.DTOs.Mapping
 {
@@ -18,7 +19,7 @@ namespace PesquisaEleitoral.DTOs.Mapping
         public static CandidatoResponseDTO ToCandidatoResponseDTO(this Candidato candidato)
         {
             return new CandidatoResponseDTO
-            {   
+            {
                 CandidatoId = candidato.CandidatoId,
                 Nome = candidato.Nome,
                 Numero = candidato.Numero,
@@ -26,16 +27,17 @@ namespace PesquisaEleitoral.DTOs.Mapping
             };
         }
 
+        public static void UpdateFromDTO(this Candidato candidato, CandidatoPutDTO candidatoPutDto)
+        {
+            candidato.CandidatoId = candidatoPutDto.CandidatoId;
+            candidato.Nome = candidatoPutDto.Nome;
+            candidato.Partido = candidatoPutDto.Partido;
+            candidato.Numero = candidatoPutDto.Numero;
+        }
+
         public static IEnumerable<CandidatoResponseDTO> ToCandidatosResponseDTOList(this IEnumerable<Candidato> candidatos)
         {
-            var candidatosResponseDto = candidatos.Select(c => new CandidatoResponseDTO
-            {
-                CandidatoId = c.CandidatoId,
-                Nome = c.Nome,
-                Numero= c.Numero,
-                Partido= c.Partido,
-            });
-            return candidatosResponseDto;
+            return candidatos.Select(c => c.ToCandidatoResponseDTO());
         }
 
     }

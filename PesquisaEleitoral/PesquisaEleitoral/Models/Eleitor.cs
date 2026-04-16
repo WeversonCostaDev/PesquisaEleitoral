@@ -9,7 +9,7 @@ namespace PesquisaEleitoral.Models
         public int EleitorId { get; set; }
         [Required]
         [StringLength(40)]
-        public string? Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         [Required]
         [Range(16,120)]
@@ -20,6 +20,12 @@ namespace PesquisaEleitoral.Models
 
         [Required]
         public Regiao Regiao { get; set; }
+        
+        [Required]
+        public Escolaridade Escolaridade { get; set; }
+
+        [Required]
+        public decimal Renda { get; set; }
 
         [JsonIgnore]
         public IntencaoDeVoto? IntencaoDeVoto { get; set; }

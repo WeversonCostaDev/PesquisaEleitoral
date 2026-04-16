@@ -12,15 +12,17 @@ namespace PesquisaEleitoral.Repositories
         {
             _context = context;
         }
-
-        public async Task<T?> GetById(int id)
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await _context
                 .Set<T>()
                 .FindAsync(id);
         }
-
-        public async Task<IEnumerable<T>> GetAll(int take)
+        public async Task<bool> VerifyAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().AnyAsync(predicate);
+        }
+        public async Task<IEnumerable<T>> GetPagedAsync(int take)
         {
             return await _context
                 .Set<T>()
@@ -28,32 +30,15 @@ namespace PesquisaEleitoral.Repositories
                 .Take(take)
                 .ToListAsync();
         }
-
-        public async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate)
-        {
-            return await _context
-                .Set<T>()
-                .AsNoTracking()
-                .Where(predicate)
-                .ToListAsync();
-        }
-        
         public T Create(T entity)
         {
             _context.Set<T>().Add(entity);
             return entity;
         }
-
-        public T Update(T entity)
-        {   
-            _context.Set<T>().Update(entity);
-            return entity;
-        }
-
-        public T Delete(T entity)
+        public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            return entity;
         }
+        
     }
 }

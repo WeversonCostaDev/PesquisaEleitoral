@@ -9,11 +9,11 @@ namespace PesquisaEleitoral.DTOs.Candidatos
 
         [Required(ErrorMessage = "O nome do Candidato é obrigatório")]
         [StringLength(40, ErrorMessage = "O nome deve ter até 40 caracteres")]
-        public string? Nome { get; set; }
+        public string Nome { get; set; } = null!;
 
         [Required(ErrorMessage = "A sigla do partido é obrigatória")]
         [StringLength(10, ErrorMessage = "A sigla deve ter no máximo 10 caracteres")]
-        public string? Partido { get; set; }
+        public string Partido { get; set; } = null!;
 
         [Required(ErrorMessage = "O número do partido é obrigatório")]
         [Range(10, 99, ErrorMessage = "O número deve estar entre 10 e 99")]

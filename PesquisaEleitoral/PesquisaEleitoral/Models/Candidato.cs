@@ -8,11 +8,11 @@ namespace PesquisaEleitoral.Models
         public int CandidatoId { get; set; }
         [Required]
         [StringLength(40)]
-        public string? Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         [Required]
         [StringLength(6)]
-        public string? Partido { get; set; }
+        public string Partido { get; set; } = string.Empty;
 
         [Required]
         [Range(10,99)]

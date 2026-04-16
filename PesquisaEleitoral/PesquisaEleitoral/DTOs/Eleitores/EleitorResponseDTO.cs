@@ -10,5 +10,7 @@ namespace PesquisaEleitoral.DTOs.Eleitores
         public int Idade { get; set; }
         public Sexo Sexo { get; set; }
         public Regiao Regiao { get; set; }
+        public Escolaridade Escolaridade { get; set; }
+        public decimal Renda { get; set; }
     }
 }

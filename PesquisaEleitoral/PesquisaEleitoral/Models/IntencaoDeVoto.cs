@@ -7,10 +7,11 @@ namespace PesquisaEleitoral.Models
         public int IntencaoDeVotoId { get; set; }
         [Required]
         public int CandidatoId { get; set; }
-        public Candidato? Candidato { get; set; }
+        public Candidato Candidato { get; set; } = null!;
+
         [Required]
         public int EleitorId { get; set; }
-        public Eleitor? Eleitor { get; set; }
+        public Eleitor Eleitor { get; set; } = null!;
         public DateTime DataRegistro { get; set; }
 
     }
