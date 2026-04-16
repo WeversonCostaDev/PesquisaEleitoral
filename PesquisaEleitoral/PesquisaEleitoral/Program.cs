@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using PesquisaEleitoral.Data;
 using PesquisaEleitoral.Extensions;
 using PesquisaEleitoral.Repositories;
 using PesquisaEleitoral.Repositories.Interfaces;
+using PesquisaEleitoral.Service;
+using PesquisaEleitoral.Services;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IIntencaoDeVotoService, IntencaoDeVotoService>();
 
 var app = builder.Build();
 
@@ -37,7 +39,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    //app.ConfigureExceptionHandler();
+    app.ConfigureExceptionHandler();
 }
 
 app.UseHttpsRedirection();

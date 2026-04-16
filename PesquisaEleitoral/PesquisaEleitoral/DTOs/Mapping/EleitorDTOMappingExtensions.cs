@@ -4,7 +4,7 @@ using PesquisaEleitoral.Models;
 
 namespace PesquisaEleitoral.DTOs.Mapping
 {
-    public static class EleitoDTOMappingExtensions
+    public static class EleitorDTOMappingExtensions
     {
         public static Eleitor ToEleitor(this EleitorDTO eleitorDto)
         {
@@ -14,15 +14,19 @@ namespace PesquisaEleitoral.DTOs.Mapping
                 Idade = eleitorDto.Idade,
                 Sexo = eleitorDto.Sexo,
                 Regiao = eleitorDto.Regiao,
+                Escolaridade = eleitorDto.Escolaridade,
+                Renda = eleitorDto.Renda,
             };
         }
         public static void UpdateFromDTO(this Eleitor eleitor, EleitorPutDTO eleitorPutDto)
         {
-            eleitor.EleitorId = eleitorPutDto.EleitorId;
             eleitor.Nome = eleitorPutDto.Nome;
             eleitor.Idade = eleitorPutDto.Idade;
             eleitor.Sexo = eleitorPutDto.Sexo;
             eleitor.Regiao = eleitorPutDto.Regiao;
+            eleitor.Escolaridade = eleitorPutDto.Escolaridade;
+            eleitor.Renda = eleitorPutDto.Renda;
+
         }
         public static EleitorResponseDTO ToEleitorResponseDTO(this Eleitor eleitor)
         {
@@ -33,6 +37,8 @@ namespace PesquisaEleitoral.DTOs.Mapping
                 Idade = eleitor.Idade,
                 Sexo = eleitor.Sexo,
                 Regiao = eleitor.Regiao,
+                Escolaridade = eleitor.Escolaridade,
+                Renda = eleitor.Renda,
             };
         }
         public static IEnumerable<EleitorResponseDTO> ToEleitoresResponseDTOList(this IEnumerable<Eleitor> eleitores)

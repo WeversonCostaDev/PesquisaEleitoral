@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\repositories\\intecaodevotorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\repositories\\intecaodevotorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\services\\intencaodevotoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\services\\intencaodevotoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\dtos\\estatisticas\\perfileleitoresdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\dtos\\estatisticas\\perfileleitoresdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|c:\\users\\bommo\\source\\repos\\pesquisaeleitoral\\pesquisaeleitoral\\pesquisaeleitoral\\controllers\\intencaodevotocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A4E7D093-6B63-F0FB-B03E-CCF364D12E72}|PesquisaEleitoral\\PesquisaEleitoral.csproj|solutionrelative:pesquisaeleitoral\\controllers\\intencaodevotocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +18,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IntencaoDeVotoService.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Services\\IntencaoDeVotoService.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Services\\IntencaoDeVotoService.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Services\\IntencaoDeVotoService.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Services\\IntencaoDeVotoService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T17:43:32.109Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
@@ -27,27 +40,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "PerfilEleitoresDTO.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\DTOs\\Estatisticas\\PerfilEleitoresDTO.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\DTOs\\Estatisticas\\PerfilEleitoresDTO.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\DTOs\\Estatisticas\\PerfilEleitoresDTO.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\DTOs\\Estatisticas\\PerfilEleitoresDTO.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAQwA0AAAAuAAAAAAAAAA==",
+              "Title": "IntencaoDeVotoController.cs",
+              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "RelativeDocumentMoniker": "PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "RelativeToolTip": "PesquisaEleitoral\\Controllers\\IntencaoDeVotoController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAA1wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T14:39:12.404Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "IntecaoDeVotoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Repositories\\IntecaoDeVotoRepository.cs",
-              "RelativeDocumentMoniker": "PesquisaEleitoral\\Repositories\\IntecaoDeVotoRepository.cs",
-              "ToolTip": "C:\\Users\\bommo\\source\\repos\\PesquisaEleitoral\\PesquisaEleitoral\\PesquisaEleitoral\\Repositories\\IntecaoDeVotoRepository.cs",
-              "RelativeToolTip": "PesquisaEleitoral\\Repositories\\IntecaoDeVotoRepository.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAuwEYAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-10T13:07:27.36Z",
+              "WhenOpened": "2026-04-16T17:43:13.945Z",
               "EditorCaption": ""
             }
           ]

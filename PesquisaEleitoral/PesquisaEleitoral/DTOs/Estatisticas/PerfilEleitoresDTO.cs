@@ -9,7 +9,6 @@ namespace PesquisaEleitoral.DTOs.Estatisticas
 
         public int TotalVotos { get; set; }
         public double PorcentagemVotos { get; set; }
-
         public decimal RendaMedia { get; set; }
         public double IdadeMedia { get; set; }
 

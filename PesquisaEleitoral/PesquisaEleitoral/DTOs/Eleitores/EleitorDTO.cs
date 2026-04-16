@@ -20,5 +20,11 @@ namespace PesquisaEleitoral.DTOs.Eleitores
 
         [Required (ErrorMessage = "Informe a região.")]
         public Regiao Regiao { get; set; }
+
+        [Required(ErrorMessage = "Informe a escolaridade.")]
+        public Escolaridade Escolaridade { get; set; }
+
+        [Required(ErrorMessage = "Informe a renda.")]
+        public decimal Renda { get; set; }
     }
 }

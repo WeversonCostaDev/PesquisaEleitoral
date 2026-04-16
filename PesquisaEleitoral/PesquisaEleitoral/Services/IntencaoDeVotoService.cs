@@ -1,75 +1,50 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PesquisaEleitoral.DTOs.Estatisticas;
+﻿using PesquisaEleitoral.DTOs.Estatisticas;
+using PesquisaEleitoral.DTOs.IntencaoDeVotos;
+using PesquisaEleitoral.DTOs.Mapping;
 using PesquisaEleitoral.Enums;
 using PesquisaEleitoral.Models;
 using PesquisaEleitoral.Repositories.Interfaces;
-using System.Linq.Expressions;
+using PesquisaEleitoral.Services;
 
 namespace PesquisaEleitoral.Service
 {
-    public class IntencaoDeVotoService
+    public class IntencaoDeVotoService : IIntencaoDeVotoService
     {
         private readonly IUnitOfWork _uow;
         public IntencaoDeVotoService(IUnitOfWork uow)
         {
             _uow = uow;
         }
-        public async Task<int> TotalDeVotosAsync()
+        public async Task<IntencaoDeVotoResponseDTO> GetByIdAsync(int id)
         {
-            return await _uow.IntencaoDeVotoRepository.TotalDeVotosAsync();
+            var intencaoDeVoto = await _uow.IntencaoDeVotoRepository.GetByIdAsync(id)
+                ?? throw new KeyNotFoundException("Intenção de voto não encontrada.");
+
+            var intencoesDeVotoDto = intencaoDeVoto.ToIntencaoDeVotoResponseDTO();
+            return intencoesDeVotoDto;
         }
-        public async Task<IntencaoDeVoto?> GetByIdAsync(int id)
-        {
-            return await _uow.IntencaoDeVotoRepository.GetByIdAsync(id);
-        }
-        public async Task<PerfilEleitoresDTO> PerfilEleitores(int candidatoId)
+        public async Task<PerfilEleitoresDTO> GetPerfilEleitores(int candidatoId)
         {
             var candidato = await _uow.CandidatoRepository.GetByIdAsync(candidatoId)
-            ?? throw new KeyNotFoundException("Candidato não encontrado.");
+                ?? throw new KeyNotFoundException("Candidato não encontrado.");
 
-            //cria uma lista de objetos anônimos com os dados de eleitores contidos em cada objeto.
-            var dadosEleitores = await _uow.IntencaoDeVotoRepository
-                .ObterDadosEleitoresAsync(candidatoId);
+            var estatisticas = await _uow.IntencaoDeVotoRepository.GetEstatisticaAsync(candidato.CandidatoId);
+            var escolaridade = await _uow.IntencaoDeVotoRepository.GetDistribuicaoEscolaridadeAsync(candidato.CandidatoId);
+            var sexo = await _uow.IntencaoDeVotoRepository.GetDistribuicaoSexoAsync(candidato.CandidatoId);
 
-            //Quantidade de votos daquele candidato.
-            var total = dadosEleitores.Count();
-            var totalGeral = await _uow.IntencaoDeVotoRepository.TotalDeVotosAsync();
-
-            //Cria um dicionario separando masculino e feminino como chaves, e porcentagem sendo os valores.
-            var distribuicaoSexo = dadosEleitores
-                .GroupBy(e => e.Sexo)
-                .ToDictionary(
-                    g => g.Key,
-                    g => total == 0 ? 0 : (double)g.Count() * 100 / total
-                );
-
-            //Cria um dicionário com nível de escoladoridade do eleitorado desse candidato.
-            var distribuicaoEscolaridade = dadosEleitores
-                .GroupBy(e => e.Escolaridade)
-                .ToDictionary(
-                    g => g.Key,
-                    g => total == 0 ? 0 : (double)g.Count() * 100 / total
-                );
-
-            //Pega a média de idade entre os eleitores.
-            var idadeMedia = total == 0 ? 0 : dadosEleitores.Average(e => e.Idade);
-            //Média da renda do eleitorado.
-            var rendaMedia = total == 0 ? 0 : dadosEleitores.Average(e => e.Renda);
-
-            var porcentagemDeVotos = totalGeral == 0 ? 0
-                : (double)total * 100 / totalGeral;
-
-            return new PerfilEleitoresDTO()
+            var result = new PerfilEleitoresDTO
             {
-                CandidatoId = candidato.CandidatoId,
+                CandidatoId = candidatoId,
                 Nome = candidato.Nome,
-                TotalVotos = total,
-                PorcentagemVotos = porcentagemDeVotos,
-                RendaMedia = rendaMedia,
-                IdadeMedia = idadeMedia,
-                DistribuicaoEscolaridade = distribuicaoEscolaridade,
-                DistribuicaoSexo = distribuicaoSexo,
+                TotalVotos = estatisticas.TotalVotos,
+                PorcentagemVotos = estatisticas.PorcentagemVotos,
+                RendaMedia = estatisticas.RendaMedia,
+                IdadeMedia = estatisticas.IdadeMedia,
+                DistribuicaoEscolaridade = escolaridade,
+                DistribuicaoSexo = sexo
+
             };
+          return result;
         }
         public async Task<IEnumerable<IntencaoDeVoto>> GetPagedAsync(int take)
         {
@@ -79,16 +54,68 @@ namespace PesquisaEleitoral.Service
         {
             return await _uow.IntencaoDeVotoRepository.EstatisticaPorCandidatoAsync(regiao);
         }
-        public async Task Create(IntencaoDeVoto intencao)
+        public async Task<IntencaoDeVotoResponseDTO> CreateAsync(IntencaoDeVotoDTO intencaoDto)
         {
-            _uow.IntencaoDeVotoRepository.Create(intencao);
+            var verifyEleitor = await _uow.EleitorRepository
+                .VerifyAsync(e => e.EleitorId == intencaoDto.EleitorId);
+
+            if(!verifyEleitor)
+                throw new KeyNotFoundException("Eleitor não existe.");
+
+            var verifyCandidato = await _uow.CandidatoRepository
+                .VerifyAsync(c => c.CandidatoId == intencaoDto.CandidatoId);
+            
+            if (!verifyCandidato)
+                throw new KeyNotFoundException("Candidato não existe.");
+
+            var verifyVotoEleitor = await _uow.IntencaoDeVotoRepository
+                .JaVotou(intencaoDto.EleitorId);
+            
+            if (verifyVotoEleitor)
+                throw new InvalidOperationException("Eleitor já votou .");
+
+            var intencao = intencaoDto.ToIntencaoDeVoto(); 
+            intencao = _uow.IntencaoDeVotoRepository.Create(intencao);
             await _uow.CommitAsync();
+
+            intencao = await _uow.IntencaoDeVotoRepository
+                .GetByIdAsync(intencao.IntencaoDeVotoId);
+
+            if (intencao is null) throw new KeyNotFoundException("Erro ao recuperar a intenção de voto");
+
+            var intencaoResponseDto = intencao.ToIntencaoDeVotoResponseDTO();
+          
+            return intencaoResponseDto;
         }
-        public async Task Delete(IntencaoDeVoto intencao)
+        public async Task UpdateAsync(IntencaoDeVotoPutDTO intencaoDeVotoPutDto)
         {
+            var intencao = await _uow.IntencaoDeVotoRepository
+                .GetByIdAsync(intencaoDeVotoPutDto.IntencaoDeVotoId);
+
+            if (intencao is null)
+                throw new InvalidOperationException("Não existe registro dessa intenção de voto.");
+
+            var eleitorExiste = await _uow.EleitorRepository
+                .VerifyAsync(e => e.EleitorId == intencaoDeVotoPutDto.EleitorId);
+            if (!eleitorExiste)
+                throw new InvalidOperationException("Eleitor não encontrado.");
+
+            var candidatoExiste = await _uow.CandidatoRepository
+                .VerifyAsync(c => c.CandidatoId == intencaoDeVotoPutDto.CandidatoId);
+            if (!candidatoExiste)
+                throw new InvalidOperationException("Candidato não encontrado.");
+
+            intencao.UpdateFromDTO(intencaoDeVotoPutDto);
+            await _uow.CommitAsync();
+
+        }   
+        public async Task DeleteAsync(int id)
+        {
+            var intencao = await _uow.IntencaoDeVotoRepository.GetByIdAsync(id);
+            if (intencao is null)
+                throw new InvalidOperationException("Registro de voto não encontrado.");
             _uow.IntencaoDeVotoRepository.Delete(intencao);
             await _uow.CommitAsync();
         }
-
     }
 }

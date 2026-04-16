@@ -15,7 +15,7 @@ namespace PesquisaEleitoral.Repositories
         {
             _context = context;
         }
-        public async Task<int> TotalDeVotosAsync()
+        private async Task<int> TotalDeVotosAsync()
         {
             return await _context.IntencoesDeVoto.CountAsync();
         }
@@ -24,8 +24,70 @@ namespace PesquisaEleitoral.Repositories
             var intencaoDeVoto = await _context.IntencoesDeVoto
                 .Include(i => i.Eleitor)
                 .Include(i => i.Candidato)
-                .FirstOrDefaultAsync(i=> i.IntencaoDeVotoId == id);
+                .FirstOrDefaultAsync(i => i.IntencaoDeVotoId == id);
             return intencaoDeVoto;
+        }
+        public async Task<EstatisticasEleitorDTO> GetEstatisticaAsync(int candidatoId)
+        {
+            var totalGeral = await TotalDeVotosAsync();
+
+            var result = await _context.IntencoesDeVoto
+                .Where(iv => iv.CandidatoId == candidatoId)
+                .GroupBy(iv => 1)
+                .Select(g => new EstatisticasEleitorDTO
+                {
+                    TotalVotos = g.Count(),
+                    PorcentagemVotos = totalGeral == 0 ? 0 
+                    : (double) g.Count() * 100 / totalGeral,
+                    IdadeMedia = g.Average(x => x.Eleitor.Idade),
+                    RendaMedia = g.Average(x => x.Eleitor.Renda),
+
+                }).FirstOrDefaultAsync();
+            
+            return result ?? new EstatisticasEleitorDTO();
+        }
+        public async Task<bool> JaVotou(int eleitorId)
+        {
+            return await _context.IntencoesDeVoto.AnyAsync(iv => iv.EleitorId == eleitorId);
+        }
+        public async Task<Dictionary<Sexo, double>> GetDistribuicaoSexoAsync(int candidatoId)
+        {
+
+            var result = await _context.IntencoesDeVoto
+            .Where(iv => iv.CandidatoId == candidatoId)
+            .GroupBy(iv => iv.Eleitor.Sexo)
+            .Select(g => new
+            {
+                Sexo = g.Key,
+                Total = g.Count()
+            }).ToListAsync();
+
+            //soma total de votos daquele candidato.
+            var total = result.Sum(obj => obj.Total);
+
+            return result.ToDictionary(
+                item => item.Sexo,
+                item => total == 0 ? 0 : (double)item.Total * 100 / total);
+
+        }
+        public async Task<Dictionary<Escolaridade, double>> GetDistribuicaoEscolaridadeAsync(int candidatoId)
+        {
+            var result = await _context.IntencoesDeVoto
+                .Where(iv => iv.CandidatoId == candidatoId)
+                .GroupBy(iv => iv.Eleitor.Escolaridade)
+                .Select(g => new
+                {
+                    Escolaridade = g.Key,
+                    Total = g.Count(),
+                })
+                .ToListAsync();
+
+            var total = result.Sum(x => x.Total);
+
+            return result.ToDictionary(
+                item => item.Escolaridade,
+                item => total == 0 ? 0 : (double)item.Total * 100/ total);
+
         }
         public async Task<IEnumerable<IntencaoDeVoto>> GetPagedAsync(int take)
         {
@@ -37,22 +99,6 @@ namespace PesquisaEleitoral.Repositories
                 .ToListAsync();
 
             return intencoesDeVoto;
-        }
-        public async Task<IEnumerable<PerfilEleitorBaseDTO>> ObterDadosEleitoresAsync(int candidatoId)
-        {
-
-            //cria uma lista de objetos com os dados de eleitores contidos em cada objeto.
-            var dadosEleitores = await _context.IntencoesDeVoto
-                .Where(iv => iv.CandidatoId == candidatoId)
-                .Select(iv => new PerfilEleitorBaseDTO
-                {
-                    Idade = iv.Eleitor.Idade,
-                    Sexo = iv.Eleitor.Sexo,
-                    Escolaridade = iv.Eleitor.Escolaridade,
-                    Renda = iv.Eleitor.Renda,
-                })
-                .ToListAsync();
-            return dadosEleitores;
         }
         public async Task<IEnumerable<EstatisticaVotoResponseDTO>> EstatisticaPorCandidatoAsync(Regiao? regiao = null)
         {
@@ -78,13 +124,14 @@ namespace PesquisaEleitoral.Repositories
 
             return listaDeVotos;
         }
-        public void Create(IntencaoDeVoto intencao)
+        public IntencaoDeVoto Create(IntencaoDeVoto intencao)
         {
             _context.Add(intencao);
+            return intencao;
         }
         public void Delete(IntencaoDeVoto intencao)
         {
             _context.Remove(intencao);
-        }
+        }        
     }
 }

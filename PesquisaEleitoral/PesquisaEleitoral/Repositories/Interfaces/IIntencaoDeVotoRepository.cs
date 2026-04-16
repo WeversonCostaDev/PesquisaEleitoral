@@ -7,12 +7,14 @@ namespace PesquisaEleitoral.Repositories.Interfaces
 {
     public interface IIntencaoDeVotoRepository
     {
-        Task<int> TotalDeVotosAsync();
         Task<IntencaoDeVoto?> GetByIdAsync(int id);
+        Task<EstatisticasEleitorDTO> GetEstatisticaAsync(int candidatoId);
+        Task<Dictionary<Sexo, double>> GetDistribuicaoSexoAsync(int candidatoId);
+        Task<Dictionary<Escolaridade, double>> GetDistribuicaoEscolaridadeAsync(int candidatoId);
+        Task<bool> JaVotou(int eleitorId);
         Task<IEnumerable<IntencaoDeVoto>> GetPagedAsync(int take);
-        Task<IEnumerable<PerfilEleitorBaseDTO>> ObterDadosEleitoresAsync(int candidatoId);
         Task<IEnumerable<EstatisticaVotoResponseDTO>> EstatisticaPorCandidatoAsync(Regiao? regiao = null);
-        void Create(IntencaoDeVoto intencao);
+        IntencaoDeVoto Create(IntencaoDeVoto intencao);
         void Delete(IntencaoDeVoto intencao);
     }    
 }
