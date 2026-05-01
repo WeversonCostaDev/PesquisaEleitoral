@@ -27,22 +27,38 @@ namespace PesquisaEleitoral.Service
         {
             var candidato = await _uow.CandidatoRepository.GetByIdAsync(candidatoId)
                 ?? throw new KeyNotFoundException("Candidato não encontrado.");
+            int totalGeral = await _uow.IntencaoDeVotoRepository.GetTotalDeVotosAsync();
 
             var estatisticas = await _uow.IntencaoDeVotoRepository.GetEstatisticaAsync(candidato.CandidatoId);
             var escolaridade = await _uow.IntencaoDeVotoRepository.GetDistribuicaoEscolaridadeAsync(candidato.CandidatoId);
             var sexo = await _uow.IntencaoDeVotoRepository.GetDistribuicaoSexoAsync(candidato.CandidatoId);
 
+            //Calcula a porcentagem de votos
+            double porcentagemVotos = totalGeral == 0.0 ? 0.0 
+                : (double) estatisticas.ContagemVotos * 100 / totalGeral;
+
+            //Converte a lista de contagem de votos por escolaridade, para um dicionário com a porcentagem como valor. 
+            int totalEscolaridade = escolaridade.Sum(obj => obj.Total);
+            Dictionary<Escolaridade, double> dictEscolaridade = escolaridade.ToDictionary(
+                item => item.Escolaridade, 
+                item => totalEscolaridade == 0 ? 0 : (double) item.Total *100 / totalEscolaridade);
+
+            //Converte a lista com contagem de votos por sexo, para um dicionário com a porcentagem como valor.
+            int totalSexo = sexo.Sum(obj => obj.Total);
+            Dictionary<Sexo, double> dictSexo = sexo.ToDictionary(
+                item => item.Sexo,
+                item => totalSexo == 0 ? 0 : (double)item.Total * 100 / totalSexo);
+
             var result = new PerfilEleitoresDTO
             {
                 CandidatoId = candidatoId,
                 Nome = candidato.Nome,
-                TotalVotos = estatisticas.TotalVotos,
-                PorcentagemVotos = estatisticas.PorcentagemVotos,
+                TotalVotos = estatisticas.ContagemVotos ,
+                PorcentagemVotos = porcentagemVotos,
                 RendaMedia = estatisticas.RendaMedia,
                 IdadeMedia = estatisticas.IdadeMedia,
-                DistribuicaoEscolaridade = escolaridade,
-                DistribuicaoSexo = sexo
-
+                DistribuicaoEscolaridade = dictEscolaridade,
+                DistribuicaoSexo = dictSexo
             };
           return result;
         }

@@ -15,7 +15,7 @@ namespace PesquisaEleitoral.Repositories
         {
             _context = context;
         }
-        private async Task<int> TotalDeVotosAsync()
+        public async Task<int> GetTotalDeVotosAsync()
         {
             return await _context.IntencoesDeVoto.CountAsync();
         }
@@ -29,19 +29,14 @@ namespace PesquisaEleitoral.Repositories
         }
         public async Task<EstatisticasEleitorDTO> GetEstatisticaAsync(int candidatoId)
         {
-            var totalGeral = await TotalDeVotosAsync();
-
             var result = await _context.IntencoesDeVoto
                 .Where(iv => iv.CandidatoId == candidatoId)
                 .GroupBy(iv => 1)
                 .Select(g => new EstatisticasEleitorDTO
                 {
-                    TotalVotos = g.Count(),
-                    PorcentagemVotos = totalGeral == 0 ? 0 
-                    : (double) g.Count() * 100 / totalGeral,
+                    ContagemVotos = g.Count(),
                     IdadeMedia = g.Average(x => x.Eleitor.Idade),
                     RendaMedia = g.Average(x => x.Eleitor.Renda),
-
                 }).FirstOrDefaultAsync();
             
             return result ?? new EstatisticasEleitorDTO();
@@ -50,44 +45,31 @@ namespace PesquisaEleitoral.Repositories
         {
             return await _context.IntencoesDeVoto.AnyAsync(iv => iv.EleitorId == eleitorId);
         }
-        public async Task<Dictionary<Sexo, double>> GetDistribuicaoSexoAsync(int candidatoId)
+        public async Task<List<SexoDTO>> GetDistribuicaoSexoAsync(int candidatoId)
         {
-
             var result = await _context.IntencoesDeVoto
             .Where(iv => iv.CandidatoId == candidatoId)
             .GroupBy(iv => iv.Eleitor.Sexo)
-            .Select(g => new
+            .Select(g => new SexoDTO
             {
                 Sexo = g.Key,
                 Total = g.Count()
             }).ToListAsync();
 
-            //soma total de votos daquele candidato.
-            var total = result.Sum(obj => obj.Total);
-
-            return result.ToDictionary(
-                item => item.Sexo,
-                item => total == 0 ? 0 : (double)item.Total * 100 / total);
-
+            return result;
         }
-        public async Task<Dictionary<Escolaridade, double>> GetDistribuicaoEscolaridadeAsync(int candidatoId)
+        public async Task<List<EscolaridadeDTO>> GetDistribuicaoEscolaridadeAsync(int candidatoId)
         {
             var result = await _context.IntencoesDeVoto
                 .Where(iv => iv.CandidatoId == candidatoId)
                 .GroupBy(iv => iv.Eleitor.Escolaridade)
-                .Select(g => new
+                .Select(g => new EscolaridadeDTO
                 {
                     Escolaridade = g.Key,
                     Total = g.Count(),
                 })
                 .ToListAsync();
-
-            var total = result.Sum(x => x.Total);
-
-            return result.ToDictionary(
-                item => item.Escolaridade,
-                item => total == 0 ? 0 : (double)item.Total * 100/ total);
-
+            return result;
         }
         public async Task<IEnumerable<IntencaoDeVoto>> GetPagedAsync(int take)
         {

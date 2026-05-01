@@ -8,8 +8,7 @@ namespace PesquisaEleitoral.DTOs.Mapping
         {
             return new EstatisticasEleitorDTO
             {
-                TotalVotos = 0,
-                PorcentagemVotos = 0,
+                ContagemVotos = 0,
                 IdadeMedia = 0,
                 RendaMedia = 0,
             };
