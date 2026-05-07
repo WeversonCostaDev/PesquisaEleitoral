@@ -1,12 +1,14 @@
-﻿using System.Linq.Expressions;
+﻿using PesquisaEleitoral.Pagination;
+using PesquisaEleitoral.Pagination.Interfaces;
+using System.Linq.Expressions;
 
 namespace PesquisaEleitoral.Repositories.Interfaces
 {
-    public interface IRepository<T>
+    public interface IRepository<T> where T : class
     {
         Task<T?> GetByIdAsync(int id);
         Task<bool> VerifyAsync(Expression<Func<T, bool>> predicate);
-        Task<IEnumerable<T>> GetPagedAsync(int take);
+        Task<IPagedList<T>>GetPagedAsync(IQueryStringPagination query);
         T Create(T entity);
         void Delete(T entity);
     }

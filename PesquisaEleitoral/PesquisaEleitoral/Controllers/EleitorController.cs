@@ -1,11 +1,11 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using PesquisaEleitoral.DTOs.Candidatos;
+﻿using Microsoft.AspNetCore.Mvc;
 using PesquisaEleitoral.DTOs.Eleitores;
 using PesquisaEleitoral.DTOs.Mapping;
+using PesquisaEleitoral.Models;
+using PesquisaEleitoral.Pagination;
+using PesquisaEleitoral.Pagination.Interfaces;
 using PesquisaEleitoral.Repositories.Interfaces;
-using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace PesquisaEleitoral.Controllers
 {
@@ -20,12 +20,11 @@ namespace PesquisaEleitoral.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EleitorResponseDTO>>> GetPaged([BindRequired][Range(1, 100)] int take)
+        public async Task<ActionResult<IEnumerable<EleitorResponseDTO>>> GetPaged([FromQuery] EleitorParameters parameters)
         {
-            var eleitores = await _uow.EleitorRepository.GetPagedAsync(take);
-            var eleitoresResponseDto = eleitores.ToEleitoresResponseDTOList();
+            var eleitores = await _uow.EleitorRepository.GetPagedAsync(parameters);
 
-            return Ok(eleitoresResponseDto);
+            return ObterEleitores(eleitores);
         }
 
         [HttpGet("{id}", Name = "GetEleitorById")]
@@ -83,6 +82,20 @@ namespace PesquisaEleitoral.Controllers
 
             await _uow.CommitAsync();
             return NoContent();
+        }
+        private ActionResult<IEnumerable<EleitorResponseDTO>> ObterEleitores(IPagedList<Eleitor> eleitores)
+        {
+            var metadados = new
+            {
+                eleitores.CurrentPage,
+                eleitores.TotalPages,
+                eleitores.HasPrevious,
+                eleitores.HasNext,
+            };
+            Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(metadados));
+            var resultado = eleitores.ToEleitoresResponseDTOList();
+
+            return Ok(resultado);
         }
     }
 }

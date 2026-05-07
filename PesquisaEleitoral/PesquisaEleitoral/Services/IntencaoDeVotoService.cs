@@ -3,6 +3,7 @@ using PesquisaEleitoral.DTOs.IntencaoDeVotos;
 using PesquisaEleitoral.DTOs.Mapping;
 using PesquisaEleitoral.Enums;
 using PesquisaEleitoral.Models;
+using PesquisaEleitoral.Pagination.Interfaces;
 using PesquisaEleitoral.Repositories.Interfaces;
 using PesquisaEleitoral.Services;
 
@@ -62,9 +63,9 @@ namespace PesquisaEleitoral.Service
             };
           return result;
         }
-        public async Task<IEnumerable<IntencaoDeVoto>> GetPagedAsync(int take)
+        public async Task<IPagedList<IntencaoDeVoto>> GetPagedAsync(IQueryStringPagination parameters)
         {
-            return await _uow.IntencaoDeVotoRepository.GetPagedAsync(take);
+            return await _uow.IntencaoDeVotoRepository.GetPagedAsync(parameters);
         }
         public async Task<IEnumerable<EstatisticaVotoResponseDTO>> EstatisticaPorCandidatoAsync(Regiao? regiao = null)
         {

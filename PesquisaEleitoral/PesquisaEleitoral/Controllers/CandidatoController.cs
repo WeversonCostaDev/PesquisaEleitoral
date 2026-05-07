@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PesquisaEleitoral.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
 using PesquisaEleitoral.DTOs.Candidatos;
 using PesquisaEleitoral.DTOs.Mapping;
 using PesquisaEleitoral.Models;
+using PesquisaEleitoral.Pagination;
+using PesquisaEleitoral.Pagination.Interfaces;
 using PesquisaEleitoral.Repositories.Interfaces;
+using System.Text.Json;
 
 namespace PesquisaEleitoral.Controllers
 {
@@ -21,17 +21,12 @@ namespace PesquisaEleitoral.Controllers
 
         //Pega quantidade X determinada pelo parâmetro take que é passado pela Querry.
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CandidatoResponseDTO>>> GetPaged(int take) 
+        public async Task<ActionResult<IEnumerable<CandidatoResponseDTO>>> GetPaged([FromQuery] CandidatoParameters parameters) 
         {
-            if (take < 1 || take > 100)
-            {
-                return BadRequest("O parâmetro 'take' deve estar entre 1 e 100.");
-            }
 
-            var candidatos = await _uow.CandidatoRepository.GetPagedAsync(take);
-            var candidatosResponseDto = candidatos.ToCandidatosResponseDTOList();
+            var candidatos = await _uow.CandidatoRepository.GetPagedAsync(parameters);
 
-            return Ok(candidatosResponseDto);
+            return ObterCandidatos(candidatos);
         }
 
         //Pega Candidato pelo id
@@ -90,6 +85,21 @@ namespace PesquisaEleitoral.Controllers
             _uow.CandidatoRepository.Delete(candidato);
             await _uow.CommitAsync();
             return NoContent();
+        }
+
+        private ActionResult<IEnumerable<CandidatoResponseDTO>> ObterCandidatos(IPagedList<Candidato> candidatos)
+        {
+            var metadados = new
+            {
+                candidatos.CurrentPage,
+                candidatos.TotalPages,
+                candidatos.HasPrevious,
+                candidatos.HasNext,
+            };
+            Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(metadados));
+            var resultado = candidatos.ToCandidatosResponseDTOList();
+
+            return Ok(resultado);
         }
     }
 }

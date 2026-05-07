@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PesquisaEleitoral.Data;
+using PesquisaEleitoral.Pagination;
+using PesquisaEleitoral.Pagination.Interfaces;
 using System.Linq.Expressions;
 
 namespace PesquisaEleitoral.Repositories
@@ -22,13 +24,18 @@ namespace PesquisaEleitoral.Repositories
         {
             return await _context.Set<T>().AnyAsync(predicate);
         }
-        public async Task<IEnumerable<T>> GetPagedAsync(int take)
-        {
-            return await _context
+        public async Task<IPagedList<T>> GetPagedAsync(IQueryStringPagination query)
+        {   
+            var count = await _context.Set<T>().CountAsync();
+
+            var items = await _context
                 .Set<T>()
                 .AsNoTracking()
-                .Take(take)
+                .Skip((query.PageNumber - 1) * query.PageSize)
+                .Take(query.PageSize)
                 .ToListAsync();
+
+            return new PagedList<T>(items, count, query.PageSize, query.PageNumber);
         }
         public T Create(T entity)
         {

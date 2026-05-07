@@ -2,6 +2,7 @@
 using PesquisaEleitoral.DTOs.IntencaoDeVotos;
 using PesquisaEleitoral.Enums;
 using PesquisaEleitoral.Models;
+using PesquisaEleitoral.Pagination.Interfaces;
 
 namespace PesquisaEleitoral.Services
 {
@@ -9,7 +10,7 @@ namespace PesquisaEleitoral.Services
     {
         Task<IntencaoDeVotoResponseDTO> GetByIdAsync(int id);
         Task<PerfilEleitoresDTO> GetPerfilEleitores(int candidatoId);
-        Task<IEnumerable<IntencaoDeVoto>> GetPagedAsync(int take);
+        Task<IPagedList<IntencaoDeVoto>> GetPagedAsync(IQueryStringPagination parameters);
         Task<IEnumerable<EstatisticaVotoResponseDTO>> EstatisticaPorCandidatoAsync(Regiao? regiao = null);
         Task<IntencaoDeVotoResponseDTO> CreateAsync(IntencaoDeVotoDTO intencao);
         Task UpdateAsync(IntencaoDeVotoPutDTO intencaoDeVotoPutDTO);

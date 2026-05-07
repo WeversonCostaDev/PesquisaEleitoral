@@ -3,6 +3,8 @@ using PesquisaEleitoral.Data;
 using PesquisaEleitoral.DTOs.Estatisticas;
 using PesquisaEleitoral.Enums;
 using PesquisaEleitoral.Models;
+using PesquisaEleitoral.Pagination;
+using PesquisaEleitoral.Pagination.Interfaces;
 using PesquisaEleitoral.Repositories.Interfaces;
 using System.Linq.Expressions;
 
@@ -71,16 +73,19 @@ namespace PesquisaEleitoral.Repositories
                 .ToListAsync();
             return result;
         }
-        public async Task<IEnumerable<IntencaoDeVoto>> GetPagedAsync(int take)
+        public async Task<IPagedList<IntencaoDeVoto>> GetPagedAsync(IQueryStringPagination parameters)
         {
-            var intencoesDeVoto = await _context.IntencoesDeVoto
+            var count = await GetTotalDeVotosAsync();
+
+            var items = await _context.IntencoesDeVoto
                 .AsNoTracking()
                 .Include(i => i.Eleitor)
                 .Include(i => i.Candidato)
-                .Take(100)
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
                 .ToListAsync();
-
-            return intencoesDeVoto;
+                
+            return new PagedList<IntencaoDeVoto>(items, count, parameters.PageSize, parameters.PageNumber);
         }
         public async Task<IEnumerable<EstatisticaVotoResponseDTO>> EstatisticaPorCandidatoAsync(Regiao? regiao = null)
         {

@@ -4,9 +4,10 @@ using PesquisaEleitoral.DTOs.IntencaoDeVotos;
 using PesquisaEleitoral.DTOs.Mapping;
 using PesquisaEleitoral.Enums;
 using PesquisaEleitoral.Models;
-using PesquisaEleitoral.Repositories.Interfaces;
-using PesquisaEleitoral.Service;
+using PesquisaEleitoral.Pagination;
+using PesquisaEleitoral.Pagination.Interfaces;
 using PesquisaEleitoral.Services;
+using System.Text.Json;
 
 namespace PesquisaEleitoral.Controllers
 {
@@ -22,11 +23,12 @@ namespace PesquisaEleitoral.Controllers
         }
 
         [HttpGet] 
-        public async Task<ActionResult<IEnumerable<IntencaoDeVotoResponseDTO>>> GetPaged(int take)
+        public async Task<ActionResult<IEnumerable<IntencaoDeVotoResponseDTO>>> GetPaged([FromQuery]
+        IntencaoDeVotoParameters parameters)
         {
-            var intencoesDeVoto = await _intencaoDeVotoService.GetPagedAsync(take);
-            var intencoesDeVotoResponseDto = intencoesDeVoto.ToIntencaoDeVotoResponseDTOList();
-            return Ok(intencoesDeVotoResponseDto);
+            var intencoesDeVoto = await _intencaoDeVotoService.GetPagedAsync(parameters);
+            
+            return ObterIntencoes(intencoesDeVoto);
         }
 
         [HttpGet("{id}", Name = "GetById")]
@@ -78,6 +80,20 @@ namespace PesquisaEleitoral.Controllers
         {
             await _intencaoDeVotoService.DeleteAsync(id);
             return NoContent();
+        }
+        private ActionResult<IEnumerable<IntencaoDeVotoResponseDTO>> ObterIntencoes(IPagedList<IntencaoDeVoto> intencoes)
+        {
+            var metadados = new
+            {
+                intencoes.CurrentPage,
+                intencoes.TotalPages,
+                intencoes.HasPrevious,
+                intencoes.HasNext,
+            };
+            Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(metadados));
+            var resultado = intencoes.ToIntencaoDeVotoResponseDTOList();
+
+            return Ok(resultado);
         }
     }
 }
