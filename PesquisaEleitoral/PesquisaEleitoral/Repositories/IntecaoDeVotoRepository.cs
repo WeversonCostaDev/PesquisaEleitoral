@@ -46,7 +46,6 @@ namespace PesquisaEleitoral.Repositories
         {
             return await _context.IntencoesDeVoto.AnyAsync(iv => iv.EleitorId == eleitorId);
         }
-
         public async Task<List<SexoDTO>> GetDistribuicaoSexoAsync(int candidatoId)
         {
             var result = await _context.IntencoesDeVoto

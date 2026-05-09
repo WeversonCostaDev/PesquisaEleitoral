@@ -6,6 +6,7 @@ using PesquisaEleitoral.Models;
 using PesquisaEleitoral.Pagination.Interfaces;
 using PesquisaEleitoral.Repositories.Interfaces;
 using PesquisaEleitoral.Services;
+using System.Linq.Expressions;
 using System.Numerics;
 
 namespace PesquisaEleitoral.Service
@@ -43,7 +44,7 @@ namespace PesquisaEleitoral.Service
             int totalEscolaridade = escolaridade.Sum(obj => obj.Total);
             Dictionary<Escolaridade, double> dictEscolaridade = escolaridade.ToDictionary(
                 item => item.Escolaridade, 
-                item => totalEscolaridade == 0 ? 0 : (double) item.Total *100 / totalEscolaridade);
+                item => totalEscolaridade == 0 ? 0 : (double) item.Total * 100 / totalEscolaridade);
 
             //Converte a lista com contagem de votos por sexo, para um dicionário com a porcentagem como valor.
             int totalSexo = sexo.Sum(obj => obj.Total);
@@ -51,8 +52,11 @@ namespace PesquisaEleitoral.Service
                 item => item.Sexo,
                 item => totalSexo == 0 ? 0 : (double)item.Total * 100 / totalSexo);
 
-            Dictionary<FaixaEtaria, decimal> dictFaixaetaria = CalculaFaixasEtarias(estatisticas.FaixasEtarias, estatisticas.ContagemVotos);
-            Dictionary<ClasseSocial, decimal> dictClasseSocial = CalculaClassesSociais(estatisticas.Rendas, estatisticas.ContagemVotos);
+            var dictFaixaEtaria = CalculaDistribuicao<int, FaixaEtaria>
+                (estatisticas.FaixasEtarias, IdentificaFaixaEtaria, estatisticas.ContagemVotos);
+
+            var dictClasseSocial = CalculaDistribuicao<decimal, ClasseSocial>
+                (estatisticas.Rendas, IdentificaClasseSocial, estatisticas.ContagemVotos);
 
             var result = new PerfilEleitoresDTO
             {
@@ -60,7 +64,7 @@ namespace PesquisaEleitoral.Service
                 Nome = candidato.Nome,
                 TotalVotos = estatisticas.ContagemVotos,
                 PorcentagemVotos = porcentagemVotos,
-                DistribuicaoFaixaEtaria = dictFaixaetaria,
+                DistribuicaoFaixaEtaria = dictFaixaEtaria,
                 DistribuicaoRenda = dictClasseSocial,
                 DistribuicaoEscolaridade = dictEscolaridade,
                 DistribuicaoSexo = dictSexo
@@ -156,25 +160,14 @@ namespace PesquisaEleitoral.Service
                 _ => FaixaEtaria.Idoso,
             };
         }
-        private Dictionary<ClasseSocial, decimal> CalculaClassesSociais(IEnumerable<decimal> rendas, int totalVotos)
+        private Dictionary<TEnum, decimal> CalculaDistribuicao<T,TEnum>
+            (IEnumerable<T> lista, Func<T, TEnum> func, int total) 
+            where TEnum : notnull
         {
-            var total = totalVotos;
-
-            var result = rendas
-                .Select(r => IdentificaClasseSocial(r))
-                .GroupBy(c => c)
-                .ToDictionary(g => g.Key, g => CalculaPorcentagem(g.Count(), totalVotos));
-            return result;
-        }
-        private Dictionary<FaixaEtaria, decimal> CalculaFaixasEtarias(IEnumerable<int> faixas, int totalVotos)
-        {
-            var total = totalVotos;
-
-            var result = faixas
-                .Select(i => IdentificaFaixaEtaria(i))
-                .GroupBy(f => f)
-                .ToDictionary(g => g.Key, g => CalculaPorcentagem(g.Count(), totalVotos));
-            return result;
+           return lista
+                .Select(i => func(i))
+                .GroupBy(i => i)
+                .ToDictionary(g => g.Key, g => CalculaPorcentagem(g.Count(), total));
         }
         private decimal CalculaPorcentagem(int total, decimal totalGeral)
         {
