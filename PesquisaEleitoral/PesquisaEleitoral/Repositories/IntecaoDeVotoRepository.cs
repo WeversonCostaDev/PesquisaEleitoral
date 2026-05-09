@@ -6,7 +6,6 @@ using PesquisaEleitoral.Models;
 using PesquisaEleitoral.Pagination;
 using PesquisaEleitoral.Pagination.Interfaces;
 using PesquisaEleitoral.Repositories.Interfaces;
-using System.Linq.Expressions;
 
 namespace PesquisaEleitoral.Repositories
 {
@@ -37,8 +36,8 @@ namespace PesquisaEleitoral.Repositories
                 .Select(g => new EstatisticasEleitorDTO
                 {
                     ContagemVotos = g.Count(),
-                    IdadeMedia = g.Average(x => x.Eleitor.Idade),
-                    RendaMedia = g.Average(x => x.Eleitor.Renda),
+                    FaixasEtarias = g.Select(g => g.Eleitor.Idade),
+                    Rendas = g.Select(g => g.Eleitor.Renda),
                 }).FirstOrDefaultAsync();
             
             return result ?? new EstatisticasEleitorDTO();

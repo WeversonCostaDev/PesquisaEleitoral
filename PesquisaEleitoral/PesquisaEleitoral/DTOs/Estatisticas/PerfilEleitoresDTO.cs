@@ -9,9 +9,8 @@ namespace PesquisaEleitoral.DTOs.Estatisticas
 
         public int TotalVotos { get; set; }
         public double PorcentagemVotos { get; set; }
-        public decimal RendaMedia { get; set; }
-        public double IdadeMedia { get; set; }
-
+        public Dictionary<FaixaEtaria, decimal> DistribuicaoFaixaEtaria { get; set; } = null!;
+        public Dictionary<ClasseSocial, decimal> DistribuicaoRenda { get; set; } = null!;
         public Dictionary<Escolaridade, double> DistribuicaoEscolaridade { get; set; } = null!;
         public Dictionary<Sexo, double> DistribuicaoSexo { get; set; } = null!;
     }

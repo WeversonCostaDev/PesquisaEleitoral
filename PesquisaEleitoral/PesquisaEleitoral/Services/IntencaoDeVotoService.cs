@@ -50,14 +50,17 @@ namespace PesquisaEleitoral.Service
                 item => item.Sexo,
                 item => totalSexo == 0 ? 0 : (double)item.Total * 100 / totalSexo);
 
+            Dictionary<FaixaEtaria, decimal> dictFaixaetaria = CalculaFaixasEtarias(estatisticas.FaixasEtarias, estatisticas.ContagemVotos);
+            Dictionary<ClasseSocial, decimal> dictClasseSocial = CalculaClassesSociais(estatisticas.Rendas, estatisticas.ContagemVotos);
+
             var result = new PerfilEleitoresDTO
             {
                 CandidatoId = candidatoId,
                 Nome = candidato.Nome,
-                TotalVotos = estatisticas.ContagemVotos ,
+                TotalVotos = estatisticas.ContagemVotos,
                 PorcentagemVotos = porcentagemVotos,
-                RendaMedia = estatisticas.RendaMedia,
-                IdadeMedia = estatisticas.IdadeMedia,
+                DistribuicaoFaixaEtaria = dictFaixaetaria,
+                DistribuicaoRenda = dictClasseSocial,
                 DistribuicaoEscolaridade = dictEscolaridade,
                 DistribuicaoSexo = dictSexo
             };
@@ -133,6 +136,46 @@ namespace PesquisaEleitoral.Service
                 throw new InvalidOperationException("Registro de voto não encontrado.");
             _uow.IntencaoDeVotoRepository.Delete(intencao);
             await _uow.CommitAsync();
+        }
+
+        private ClasseSocial IdentificaClasseSocial(decimal renda)
+        {
+            return renda switch
+            {
+                <= 2000 => ClasseSocial.Baixa,
+                <= 10000 => ClasseSocial.Media,
+                _ => ClasseSocial.Alta,
+            };       
+        }
+        private FaixaEtaria IdentificaFaixaEtaria(int idade)
+        {
+            return idade switch
+            {
+                >= 16 and <= 29 => FaixaEtaria.Jovem,
+                >29 and <=59 => FaixaEtaria.Adulto,
+                _ => FaixaEtaria.Idoso,
+            };
+        }
+
+        private Dictionary<ClasseSocial, decimal> CalculaClassesSociais(IEnumerable<decimal> rendas, int totalVotos)
+        {
+            var total = totalVotos;
+
+            var result = rendas
+                .Select(r => IdentificaClasseSocial(r))
+                .GroupBy(c => c)
+                .ToDictionary(g => g.Key, g => total == 0 ? 0 : g.Count() / (decimal) total);
+            return result;
+        }
+        private Dictionary<FaixaEtaria, decimal> CalculaFaixasEtarias(IEnumerable<int> faixas, int totalVotos)
+        {
+            var total = totalVotos;
+
+            var result = faixas
+                .Select(i => IdentificaFaixaEtaria(i))
+                .GroupBy(f => f)
+                .ToDictionary(g => g.Key, g => total == 0 ? 0 : g.Count() / (decimal) total);
+            return result;
         }
     }
 }
