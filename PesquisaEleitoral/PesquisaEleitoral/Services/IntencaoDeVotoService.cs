@@ -6,6 +6,7 @@ using PesquisaEleitoral.Models;
 using PesquisaEleitoral.Pagination.Interfaces;
 using PesquisaEleitoral.Repositories.Interfaces;
 using PesquisaEleitoral.Services;
+using System.Numerics;
 
 namespace PesquisaEleitoral.Service
 {
@@ -137,7 +138,6 @@ namespace PesquisaEleitoral.Service
             _uow.IntencaoDeVotoRepository.Delete(intencao);
             await _uow.CommitAsync();
         }
-
         private ClasseSocial IdentificaClasseSocial(decimal renda)
         {
             return renda switch
@@ -156,7 +156,6 @@ namespace PesquisaEleitoral.Service
                 _ => FaixaEtaria.Idoso,
             };
         }
-
         private Dictionary<ClasseSocial, decimal> CalculaClassesSociais(IEnumerable<decimal> rendas, int totalVotos)
         {
             var total = totalVotos;
@@ -164,7 +163,7 @@ namespace PesquisaEleitoral.Service
             var result = rendas
                 .Select(r => IdentificaClasseSocial(r))
                 .GroupBy(c => c)
-                .ToDictionary(g => g.Key, g => total == 0 ? 0 : g.Count() / (decimal) total);
+                .ToDictionary(g => g.Key, g => CalculaPorcentagem(g.Count(), totalVotos));
             return result;
         }
         private Dictionary<FaixaEtaria, decimal> CalculaFaixasEtarias(IEnumerable<int> faixas, int totalVotos)
@@ -174,8 +173,12 @@ namespace PesquisaEleitoral.Service
             var result = faixas
                 .Select(i => IdentificaFaixaEtaria(i))
                 .GroupBy(f => f)
-                .ToDictionary(g => g.Key, g => total == 0 ? 0 : g.Count() / (decimal) total);
+                .ToDictionary(g => g.Key, g => CalculaPorcentagem(g.Count(), totalVotos));
             return result;
+        }
+        private decimal CalculaPorcentagem(int total, decimal totalGeral)
+        {
+            return total == 0 ? 0 : 100 * (total / (decimal)totalGeral);
         }
     }
 }
