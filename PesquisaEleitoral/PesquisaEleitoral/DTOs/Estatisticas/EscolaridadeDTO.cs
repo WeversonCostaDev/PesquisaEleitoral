@@ -5,6 +5,6 @@ namespace PesquisaEleitoral.DTOs.Estatisticas
     public class EscolaridadeDTO
     {
         public Escolaridade Escolaridade;
-        public int Total;
+        public int Total { get; set; }
     }
 }

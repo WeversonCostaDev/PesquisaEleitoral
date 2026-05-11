@@ -42,11 +42,11 @@ namespace PesquisaEleitoral.Repositories
             
             return result ?? new EstatisticasEleitorDTO();
         }
-        public async Task<bool> JaVotou(int eleitorId)
+        public async Task<bool> JaVotouAsync(int eleitorId)
         {
             return await _context.IntencoesDeVoto.AnyAsync(iv => iv.EleitorId == eleitorId);
         }
-        public async Task<List<SexoDTO>> GetDistribuicaoSexoAsync(int candidatoId)
+        public async Task<IEnumerable<SexoDTO>> GetDistribuicaoSexoAsync(int candidatoId)
         {
             var result = await _context.IntencoesDeVoto
             .Where(iv => iv.CandidatoId == candidatoId)
@@ -59,7 +59,7 @@ namespace PesquisaEleitoral.Repositories
 
             return result;
         }
-        public async Task<List<EscolaridadeDTO>> GetDistribuicaoEscolaridadeAsync(int candidatoId)
+        public async Task<IEnumerable<EscolaridadeDTO>> GetDistribuicaoEscolaridadeAsync(int candidatoId)
         {
             var result = await _context.IntencoesDeVoto
                 .Where(iv => iv.CandidatoId == candidatoId)

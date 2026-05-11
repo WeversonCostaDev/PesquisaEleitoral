@@ -35,25 +35,24 @@ namespace PesquisaEleitoral.Service
             var estatisticas = await _uow.IntencaoDeVotoRepository.GetEstatisticaAsync(candidato.CandidatoId);
             var escolaridade = await _uow.IntencaoDeVotoRepository.GetDistribuicaoEscolaridadeAsync(candidato.CandidatoId);
             var sexo = await _uow.IntencaoDeVotoRepository.GetDistribuicaoSexoAsync(candidato.CandidatoId);
-
+            
             //Calcula a porcentagem de votos
-            double porcentagemVotos = totalGeral == 0.0 ? 0.0 
-                : (double) estatisticas.ContagemVotos * 100 / totalGeral;
+            decimal porcentagemVotos = CalculaPorcentagem(estatisticas.ContagemVotos, totalGeral);
 
             //Converte a lista de contagem de votos por escolaridade, para um dicionário com a porcentagem como valor. 
-            int totalEscolaridade = escolaridade.Sum(obj => obj.Total);
-            Dictionary<Escolaridade, double> dictEscolaridade = escolaridade.ToDictionary(
+            decimal totalEscolaridade = escolaridade.Sum(obj => obj.Total);
+            Dictionary<Escolaridade, decimal> dictEscolaridade = escolaridade.ToDictionary(
                 item => item.Escolaridade, 
-                item => totalEscolaridade == 0 ? 0 : (double) item.Total * 100 / totalEscolaridade);
+                item => totalEscolaridade = CalculaPorcentagem(item.Total, totalEscolaridade));
 
             //Converte a lista com contagem de votos por sexo, para um dicionário com a porcentagem como valor.
-            int totalSexo = sexo.Sum(obj => obj.Total);
-            Dictionary<Sexo, double> dictSexo = sexo.ToDictionary(
+            decimal totalSexo = sexo.Sum(obj => obj.Total);
+            Dictionary<Sexo, decimal> dictSexo = sexo.ToDictionary(
                 item => item.Sexo,
-                item => totalSexo == 0 ? 0 : (double)item.Total * 100 / totalSexo);
+                item => CalculaPorcentagem(item.Total, totalSexo));
 
             var dictFaixaEtaria = CalculaDistribuicao<int, FaixaEtaria>
-                (estatisticas.FaixasEtarias, IdentificaFaixaEtaria, estatisticas.ContagemVotos);
+              (estatisticas.FaixasEtarias, IdentificaFaixaEtaria, estatisticas.ContagemVotos);
 
             var dictClasseSocial = CalculaDistribuicao<decimal, ClasseSocial>
                 (estatisticas.Rendas, IdentificaClasseSocial, estatisticas.ContagemVotos);
@@ -94,7 +93,7 @@ namespace PesquisaEleitoral.Service
                 throw new KeyNotFoundException("Candidato não existe.");
 
             var verifyVotoEleitor = await _uow.IntencaoDeVotoRepository
-                .JaVotou(intencaoDto.EleitorId);
+                .JaVotouAsync(intencaoDto.EleitorId);
             
             if (verifyVotoEleitor)
                 throw new InvalidOperationException("Eleitor já votou .");
@@ -168,7 +167,7 @@ namespace PesquisaEleitoral.Service
                 .Select(i => func(i))
                 .GroupBy(i => i)
                 .ToDictionary(g => g.Key, g => CalculaPorcentagem(g.Count(), total));
-        }
+        } 
         private decimal CalculaPorcentagem(int total, decimal totalGeral)
         {
             return total == 0 ? 0 : 100 * (total / (decimal)totalGeral);

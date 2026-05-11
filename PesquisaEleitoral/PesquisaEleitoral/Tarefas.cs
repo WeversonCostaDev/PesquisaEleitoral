@@ -3,3 +3,5 @@
 //Refatorar o código - Remover regras de negócio dos controlladores e aplicar em uma camada de serviço.
 
 //TODO: PUT de intencaoDeVoto. Polir metodo e ver se é necessario criar um Get exclusivo para ele ou nao.
+
+//Adiconar SUM nos DTOs para nao retornar LIST - intencoa de voto repository
