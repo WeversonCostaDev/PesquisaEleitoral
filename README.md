@@ -1,2 +1,2 @@
-# PesquisaEleitoral
-Projeto de pesquisa eleitoral da disciplina de APS
+# PesquisaEleitoral_v2
+Segunda versão de pesquisa Eleitoral
