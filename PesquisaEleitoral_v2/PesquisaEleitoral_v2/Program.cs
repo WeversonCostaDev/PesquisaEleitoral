@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PesquisaEleitoral_v2.Data;
+using PesquisaEleitoral_v2.Middlewares;
 using PesquisaEleitoral_v2.Repositories;
 using PesquisaEleitoral_v2.Repositories.Interfaces;
 using PesquisaEleitoral_v2.Services;
@@ -35,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
 

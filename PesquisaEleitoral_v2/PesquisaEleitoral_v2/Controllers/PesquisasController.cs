@@ -98,7 +98,7 @@ namespace PesquisaEleitoral_v2.Controllers
         }
 
         [HttpPut("eleitores/voto")]
-        public async Task<ActionResult> Put(IntencaoDeVotoUpdateDTO votoUpdate)
+        public async Task<ActionResult> AtualizaVotoEleitor(IntencaoDeVotoUpdateDTO votoUpdate)
         {
             await _pesquisaService.AtualizaVotoEleitorAsync(votoUpdate);
             return NoContent();
